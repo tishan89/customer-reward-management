@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Loyalty Engine API
+  version: 1.0.0
+  description: An API for retrieving user rewards and details.
+
+paths:
+  /user-rewards:
+    get:
+      summary: Get all user rewards.
+      responses:
+        '200':
+          description: A list of user rewards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserReward'
+  /user/{id}:
+    get:
+      summary: Get user details by their ID.
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User details for the given ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique user identifier.
+        firstName:
+          type: string
+          description: User's first name.
+        lastName:
+          type: string
+          description: User's last name.
+        email:
+          type: string
+          description: User's email address.
+          format: email
+
+    UserReward:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique user identifier.
+        selectedRewardDealId:
+          type: string
+          description: ID of the selected reward deal.
+        timestamp:
+          type: string
+          description: Timestamp of the reward selection.
+          format: date-time
+        acceptedTnC:
+          type: boolean
+          description: Indicates if user accepted the Terms and Conditions.

@@ -40,7 +40,7 @@ func main() {
 	// Sample Data
 	rewards = append(rewards, Reward{RewardId: "RWD0000", UserId: "U0000", FirstName: "John", LastName: "Doe", Email: "john@example.com"})
 	r.HandleFunc("/rewards", CreateReward).Methods("POST")
-	http.ListenAndServe(":8000", r)
+	http.ListenAndServe(":8080", r)
 }
 
 func init() {

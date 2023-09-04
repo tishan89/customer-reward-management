@@ -19,8 +19,6 @@ type UserReward struct {
 	SelectedRewardDealId string `json:"selectedRewardDealId"`
 	Timestamp            string `json:"timestamp"` // Consider using time.Time if you need date-time operations
 	AcceptedTnC          bool   `json:"acceptedTnC"`
-	UserAgent            string `json:"userAgent"`
-	IPAddress            string `json:"ipAddress"`
 }
 
 
@@ -58,8 +56,8 @@ func main() {
 	logger.Info("Starting the loyalty engine...")
 
 	r := mux.NewRouter()
-	userRewards = append(userRewards, UserReward{"U451298", "RWD34589", "2023-09-04T14:32:21Z", true, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36", "192.168.1.101"})
-	userRewards = append(userRewards, UserReward{"U451299", "RWD34590", "2023-09-04T14:32:21Z", true, "Mozilla/5.0 (Linux; Android 10; SM-A205F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Mobile Safari/537.36", "192.168.1.102"})
+	userRewards = append(userRewards, UserReward{"U451298", "RWD34589", "2023-09-04T14:32:21Z", true})
+	userRewards = append(userRewards, UserReward{"U451299", "RWD34590", "2023-09-04T14:32:21Z", true})
 
 	users = append(users, User{"U451298", "John", "Doe", "john@example.com"})
 	users = append(users, User{"U451299", "Katie", "Smith", "katie@example.com"})
