@@ -34,7 +34,7 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /app /app
 
 # Specify a non-root user to run the application (security best practice).
-USER 1000:1000
+USER 10014
 
 # Expose port 8080 for the application.
 EXPOSE 8080
