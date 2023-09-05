@@ -17,6 +17,6 @@ service / on new http:Listener(9090) {
 
     resource function post create(@http:Payload RewardDeal payload) returns error?  {
         log:printInfo("RewardDeal: ", payload = payload);
-
+        
     }
 }
