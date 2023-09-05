@@ -1,0 +1,39 @@
+openapi: 3.0.1
+info:
+  title: Reward Deal API
+  version: 1.0.0
+servers:
+  - url: http://localhost:9090
+paths:
+  /:
+    post:
+      summary: Create a reward deal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RewardDeal'
+      responses:
+        '200':
+          description: Successful operation
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    RewardDeal:
+      type: object
+      required:
+        - userId
+        - dealId
+        - acceptedTC
+      properties:
+        userId:
+          type: string
+          description: The user identifier.
+        dealId:
+          type: string
+          description: The deal identifier.
+        acceptedTC:
+          type: boolean
+          description: Indicates if the terms and conditions are accepted.
