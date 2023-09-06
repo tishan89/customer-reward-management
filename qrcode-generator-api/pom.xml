@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ramith</groupId>
-    <artifactId>qrcode-generator</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>qrcode-generator-api</artifactId>
+    <version>1.0.0</version>
     <name>qrcode-generator</name>
     <description>Generate a QR Code</description>
     <properties>
