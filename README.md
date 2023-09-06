@@ -1,5 +1,4 @@
 # customer-reward-management
 
-A User on our site selects a particular reward deal, the deal means that as he accepts the T&Cs we call a workflow that gets the Users details from our Loyalty Engine and then passes the information to the Reward Vendor and once the Reward Vendor receives the information they send a 200 and then POST a 16 digit number to us and we then turn that number into a QR Code and store it on the Users profile. They can use it for a discount.
-
- 
+Usecase:
+When a user on our website chooses a specific reward deal and agrees to the terms and conditions, we initiate a workflow. This workflow retrieves the user's details from our Loyalty Engine. These details are then forwarded to the Reward Vendor. Upon successful receipt of the information, the Reward Vendor responds with a 200 status. Subsequently, they POST a 16-digit number to us. We convert this number into a QR Code, which is stored in the user's profile, allowing them to avail a discount.
