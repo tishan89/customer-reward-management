@@ -22,9 +22,14 @@ import java.io.File;
 @RestController
 public class QRCodeGeneratorRestController {
 
-
+    /**
+     * Generate QR code for the given content
+     * @param content - content to be encoded in the QR code
+     * @return - QR code image
+     * @throws Exception - throws exception if any
+     */
     @GetMapping(value = "/qr", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<BufferedImage> barbecueEAN13Barcode(@RequestParam(name = "content", required = true) String content)
+    public ResponseEntity<BufferedImage> qrcode(@RequestParam(name = "content", required = true) String content)
             throws Exception {
         return ResponseEntity.ok(generateQRCodeImage(content));
     }
