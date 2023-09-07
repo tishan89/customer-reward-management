@@ -58,21 +58,21 @@ func RespondWithRewardConfirmation(rewardId string, userId string) {
 	// Convert the anonymous struct to JSON
 	data, err := json.Marshal(rewardConfirmation)
 	if err != nil {
-		logger.Error("Failed to marshal data: %v", err)
+		logger.Error("Failed to marshal data", zap.Error(err))
 	}
 
 	resp, err := client.Post(rewardMgtApiUrl, "application/json", bytes.NewBuffer(data))
 	if err != nil {
-		logger.Error("Failed to send POST request: %v", err)
+		logger.Error("Failed to send POST request", zap.Error(err))
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		logger.Error("Failed to read response: %v", err)
+		logger.Error("Failed to read response", zap.Error(err))
 	}
 
-	logger.Printf("Response: %s\n", body)
+	logger.Info("Response", zap.String("response", string(body)))
 
 }
 
