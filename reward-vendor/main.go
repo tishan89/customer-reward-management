@@ -2,10 +2,8 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"math/rand"
 	"net/http"
 	"os"
@@ -13,7 +11,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
-	"golang.org/x/oauth2/clientcredentials"
 )
 
 type Reward struct {
@@ -33,20 +30,10 @@ type RewardConfirmation struct {
 var logger *zap.Logger
 var rewards []Reward
 
-var rewardMgtClientId = os.Getenv("REWARD_MGT_CLIENT_ID")
-var rewardMgtClientSecret = os.Getenv("REWARD_MGT_CLIENT_SECRET")
-var rewardMgtTokenUrl = os.Getenv("REWARD_MGT_TOKEN_URL")
-var rewardMgtApiUrl = os.Getenv("REWARD_MGT_API_URL")
-
-var config = clientcredentials.Config{
-	ClientID:     rewardMgtClientId,
-	ClientSecret: rewardMgtClientSecret,
-	TokenURL:     rewardMgtTokenUrl,
-}
+var rewardConfirmationWebhookUrl = os.Getenv("REWARD_CONFIRMATION_WEBHOOK_URL")
 
 func RespondWithRewardConfirmation(rewardId string, userId string) {
 	logger.Info("responding with reward confirmation")
-	client := config.Client(context.Background())
 
 	// Generate the 16-digit number and encapsulate in an anonymous struct
 	rewardConfirmation := RewardConfirmation{
@@ -61,18 +48,18 @@ func RespondWithRewardConfirmation(rewardId string, userId string) {
 		logger.Error("Failed to marshal data", zap.Error(err))
 	}
 
-	resp, err := client.Post(rewardMgtApiUrl, "application/json", bytes.NewBuffer(data))
+	resp, err := http.Post(rewardConfirmationWebhookUrl, "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		logger.Error("Failed to send POST request", zap.Error(err))
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		logger.Error("Failed to read response", zap.Error(err))
+	// Optionally, handle non-200 status codes
+	if resp.StatusCode != http.StatusAccepted {
+		logger.Warn("Webhook responded with non-200 status code", zap.Int("statusCode", resp.StatusCode))
+	} else {
+		logger.Info("Successfully sent reward confirmation", zap.Any("rewardConfirmation", rewardConfirmation))
 	}
-
-	logger.Info("Response", zap.String("response", string(body)))
 
 }
 
@@ -85,7 +72,7 @@ func Generate16DigitNumber() string {
 	return fmt.Sprintf("%016d", number)
 }
 
-func CreateReward(w http.ResponseWriter, r *http.Request) {
+func HandleCreateReward(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var reward Reward
 	_ = json.NewDecoder(r.Body).Decode(&reward)
@@ -97,19 +84,19 @@ func CreateReward(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(reward)
 
 	logger.Info("responding with reward confirmation", zap.Any("reward", reward))
-	//RespondWithRewardConfirmation(reward.RewardId, reward.UserId)
+	RespondWithRewardConfirmation(reward.RewardId, reward.UserId)
 }
 
 func main() {
 	defer logger.Sync() // Ensure all buffered logs are written
 
-	logger.Info("Starting the reward vender...")
+	logger.Info("Starting the reward vendor...")
 
 	r := mux.NewRouter()
 
 	// Sample Data
 	rewards = append(rewards, Reward{RewardId: "RWD0000", UserId: "U0000", FirstName: "John", LastName: "Doe", Email: "john@example.com"})
-	r.HandleFunc("/rewards", CreateReward).Methods("POST")
+	r.HandleFunc("/rewards", HandleCreateReward).Methods("POST")
 	http.ListenAndServe(":8080", r)
 }
 
