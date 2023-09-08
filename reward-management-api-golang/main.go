@@ -83,7 +83,7 @@ func HandleRewardSelection(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		logger.Error("unable to send reward selection to vendor management api", zap.Error(err))
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("unable to send reward selection to vendor management api"))
+		w.Write([]byte("unable to send reward selection to vendor management  api"))
 		return
 	}
 
