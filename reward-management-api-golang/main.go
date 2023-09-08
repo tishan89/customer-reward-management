@@ -91,6 +91,20 @@ func HandleRewardSelection(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("reward selection received successfully"))
 }
 
+func LivenessProbe(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Alive"))
+}
+
+func ReadinessProbe(w http.ResponseWriter, r *http.Request) {
+	// Add logic here to check database connections, external services, etc.
+	// If all checks pass:
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Ready"))
+	// If any check fails:
+	// w.WriteHeader(http.StatusInternalServerError)
+}
+
 func main() {
 
 	defer logger.Sync() // Ensure all buffered logs are written
@@ -99,6 +113,10 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/select-reward", HandleRewardSelection).Methods("POST")
+
+	r.HandleFunc("/healthz", ReadinessProbe).Methods("GET") // Readiness probe
+	r.HandleFunc("/livez", LivenessProbe).Methods("GET")    // Liveness probe
+
 	err := http.ListenAndServe(":8080", r)
 	if err != nil {
 		return
