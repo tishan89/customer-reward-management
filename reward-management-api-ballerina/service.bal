@@ -66,6 +66,7 @@ service / on new http:Listener(9090) {
         });
 
         Reward reward = transform(user, selection);
+        log:printInfo("transformed reward: ", reward = reward);
 
         http:Response|http:Error response = vendorManagementClientEp->post("/reward", reward);
 
@@ -74,7 +75,9 @@ service / on new http:Listener(9090) {
             return response;
         }
 
+        log:printInfo("reward selection sent to vendor ", statusCode = response.statusCode);
         return "success";
+
     }
 
 }
