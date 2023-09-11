@@ -70,7 +70,8 @@ service / on new http:Listener(9090) {
         http:Response|http:Error response = vendorManagementClientEp->post("/reward", reward);
 
         if response is http:Error {
-            log:printError("Error while sending reward selection to vender ", 'error = response);
+            log:printError("error while sending reward selection to vender ", 'error = response);
+            return response;
         }
 
         return "success";
