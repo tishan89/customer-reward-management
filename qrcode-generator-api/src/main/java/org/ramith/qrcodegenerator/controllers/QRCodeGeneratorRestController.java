@@ -28,7 +28,7 @@ public class QRCodeGeneratorRestController {
      * @return - QR code image
      * @throws Exception - throws exception if any
      */
-    @GetMapping(value = "/qr", produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "/qrcode", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<BufferedImage> qrcode(@RequestParam(name = "content", required = true) String content)
             throws Exception {
         return ResponseEntity.ok(generateQRCodeImage(content));

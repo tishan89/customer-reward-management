@@ -2,6 +2,13 @@ import ballerina/http;
 import ballerina/log;
 import ballerina/oauth2;
 
+
+public type RewardSelection record {
+    string userId;
+    string selectedRewardDealId;
+    boolean acceptedTnC;
+};
+
 public type User record {
     string userId;
     string firstName;
@@ -9,11 +16,6 @@ public type User record {
     string email;
 };
 
-public type RewardSelection record {
-    string userId;
-    string selectedRewardDealId;
-    boolean acceptedTnC;
-};
 
 public type Reward record {
     string rewardId;
