@@ -39,7 +39,7 @@ oauth2:ClientOAuth2Provider provider = new ({
 # bound to port `9090`.
 service / on new http:Listener(9090) {
 
-    resource function post pick(RewardSelection selection) returns error? {
+    resource function post pick(RewardSelection selection) returns error|string {
         log:printInfo("reward selected: ", selection = selection);
 
         http:Client clientEp = check new (loyaltyApiUrl, {
@@ -72,6 +72,8 @@ service / on new http:Listener(9090) {
         if response is http:Error {
             log:printError("Error while sending reward selection to vender ", 'error = response);
         }
+
+        return "success";
     }
 
 }
