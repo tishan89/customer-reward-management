@@ -7,6 +7,11 @@ service / on new http:Listener(9090) {
 
     resource function post confirm(@http:Payload RewardConfirmationEvent payload) returns error? {
         log:printInfo("reward confirmation received", rewardConfirmation = payload);
+
+        log:printInfo("generate qr code for: ", rewardConformationNumber = payload.rewardConfirmationNumber);
+
+
+
     }
 }
 
