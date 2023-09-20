@@ -58,6 +58,7 @@ service / on new http:Listener(9090) {
         }
 
         log:printInfo("user retrieved: ", user = user);
+        Reward reward = transform(user, selection);
 
         http:Client vendorManagementClientEp = check new (vendorManagementApiUrl, {
             auth: {
@@ -66,8 +67,6 @@ service / on new http:Listener(9090) {
                 clientSecret: clientSecret
             }
         });
-
-        Reward reward = transform(user, selection);
 
         http:Response|http:Error response = vendorManagementClientEp->post("/rewards", reward);
 

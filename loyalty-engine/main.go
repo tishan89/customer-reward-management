@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"net/http"
 	"go.uber.org/zap"
+	"net/http"
 )
 
 type User struct {
@@ -20,7 +20,6 @@ type UserReward struct {
 	Timestamp            string `json:"timestamp"` // Consider using time.Time if you need date-time operations
 	AcceptedTnC          bool   `json:"acceptedTnC"`
 }
-
 
 var logger *zap.Logger
 var userRewards []UserReward
@@ -51,7 +50,7 @@ func getUserDetails(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	defer logger.Sync()  // Ensure all buffered logs are written
+	defer logger.Sync() // Ensure all buffered logs are written
 
 	logger.Info("Starting the loyalty engine...")
 
@@ -69,9 +68,9 @@ func main() {
 }
 
 func init() {
-    var err error
-    logger, err = zap.NewProduction()
-    if err != nil {
-        panic(err)
-    }
+	var err error
+	logger, err = zap.NewProduction()
+	if err != nil {
+		panic(err)
+	}
 }
