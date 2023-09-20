@@ -1,0 +1,11 @@
+---
+key: "customer_reward_mgt-1.0.0"
+name : "customer_reward_mgt"
+displayName : "customer_reward_mgt"
+description: "Sample API"
+version: "1.0.0"
+serviceUrl: "https://{MI_HOST}:{MI_PORT}/select-reward"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
+apiId : "null"

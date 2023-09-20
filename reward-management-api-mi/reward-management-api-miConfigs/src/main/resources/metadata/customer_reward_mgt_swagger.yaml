@@ -1,0 +1,13 @@
+openapi: 3.0.1
+info:
+  title: customer_reward_mgt
+  description: API Definition of customer_reward_mgt
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/select-reward
+paths:
+  /:
+    post:
+      responses:
+        default:
+          description: Default response

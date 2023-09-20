@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="LoyaltyMgt" xmlns="http://ws.apache.org/ns/synapse">
+    <http method="get" uri-template="{uri.var.LOYALTY_API_URL}/user/{uri.var.userId}">
+        <suspendOnFailure>
+            <initialDuration>-1</initialDuration>
+            <progressionFactor>1.0</progressionFactor>
+        </suspendOnFailure>
+        <markForSuspension>
+            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+        </markForSuspension>
+        <authentication>
+            <oauth>
+                <clientCredentials>
+                    <clientId>{get-property('env', 'CLIENT_ID')}</clientId>
+                    <clientSecret>{get-property('env', 'CLIENT_SECRET')}</clientSecret>
+                    <tokenUrl>{get-property('env', 'TOKEN_URL')}</tokenUrl>
+                    <authMode>Header</authMode>
+                </clientCredentials>
+            </oauth>
+        </authentication>
+    </http>
+</endpoint>

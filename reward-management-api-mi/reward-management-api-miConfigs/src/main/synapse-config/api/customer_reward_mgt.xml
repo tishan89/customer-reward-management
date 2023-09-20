@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/select-reward" name="customer_reward_mgt" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <property expression="json-eval($.userId)" name="uri.var.userId" scope="default" type="STRING"/>
+            <property expression="json-eval($.selectedRewardDealId)" name="selectedRewardDealId" scope="default" type="STRING"/>
+            <property expression="get-property('env', 'LOYALTY_API_URL')" name="uri.var.LOYALTY_API_URL" scope="default" type="STRING"/>
+            <property expression="get-property('env', 'VENDOR_MANAGEMENT_API_URL')" name="uri.var.VENDOR_MANAGEMENT_API_URL" scope="default" type="STRING"/>
+            <log level="full">
+                <property expression="$ctx:uri.var.userId" name="uri.var.userId"/>
+                <property expression="$ctx:selectedRewardDealId" name="selectedRewardDealId"/>
+                <property expression="get-property('env', 'TOKEN_URL')" name="TOKEN_URL"/>
+                <property expression="get-property('env', 'VENDOR_MANAGEMENT_API_URL')" name="uri.var.VENDOR_MANAGEMENT_API_URL"/>
+                <property expression="get-property('env', 'LOYALTY_API_URL')" name="uri.var.LOYALTY_API_URL"/>
+            </log>
+            <log level="full"/>
+            <call>
+                <endpoint key="LoyaltyMgt"/>
+            </call>
+            <log level="full"/>
+            <payloadFactory media-type="json">
+                <format>
+					{
+					"firstName": "$1",
+					"lastName": "$2",
+					"userId": "$3",
+					"rewardId": "$4",
+					"email": "$5"
+					}
+				</format>
+                <args>
+                    <arg evaluator="json" expression="$.firstName"/>
+                    <arg evaluator="json" expression="$.lastName"/>
+                    <arg evaluator="xml" expression="$ctx:uri.var.userId"/>
+                    <arg evaluator="xml" expression="$ctx:selectedRewardDealId"/>
+                    <arg evaluator="json" expression="$.email"/>
+                </args>
+            </payloadFactory>
+            <call>
+                <endpoint key="VendorMgt"/>
+            </call>
+            <log level="full"/>
+            <payloadFactory media-type="text">
+                <format>
+					success
+				</format>
+                <args/>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <log level="full"/>
+            <payloadFactory media-type="json">
+                <format>
+					{"error_code" : $1, "error_msg" : "$2"}
+				</format>
+                <args>
+                    <arg evaluator="xml" expression="get-property('ERROR_CODE')"/>
+                    <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+                </args>
+            </payloadFactory>
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>
