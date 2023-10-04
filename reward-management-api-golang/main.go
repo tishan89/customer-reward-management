@@ -109,7 +109,7 @@ func main() {
 
 	defer logger.Sync() // Ensure all buffered logs are written
 
-	logger.Info("starting the reward management api (golang) ...")
+	logger.Info("starting the reward management api (golang)...")
 
 	r := mux.NewRouter()
 	r.HandleFunc("/select-reward", HandleRewardSelection).Methods("POST")
