@@ -74,7 +74,7 @@ http:Client vendorManagementClientEp = check new (vendorManagementApiUrl, {
 }
 service / on new http:Listener(9090) {
 
-    resource function post pick(RewardSelection selection) returns error|string {
+    resource function post select\-reward(RewardSelection selection) returns error|string {
         log:printInfo("reward selected: ", selection = selection);
 
         User|http:Error user = loyaltyAPIEndpoint->/user/[selection.userId];
