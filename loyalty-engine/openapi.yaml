@@ -5,6 +5,18 @@ info:
   description: An API for retrieving user rewards and details.
 
 paths:
+  /rewards:
+    get:
+      summary: Get Reward Offers
+      responses:
+        '200':
+          description: Successful response with reward offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RewardOffer'
   /user-rewards:
     get:
       summary: Get all user rewards.
@@ -59,7 +71,25 @@ components:
           type: string
           description: User's email address.
           format: email
-
+    RewardOffer:
+      type: object
+      properties:
+        RewardId:
+          type: string
+          description: Reward offer ID
+        Name:
+          type: string
+          description: Reward offer name
+        Value:
+          type: number
+          format: float
+          description: Reward offer value
+        TotalPoints:
+          type: integer
+          description: Total points required for the reward
+        Description:
+          type: string
+          description: Reward offer description
     UserReward:
       type: object
       properties:
