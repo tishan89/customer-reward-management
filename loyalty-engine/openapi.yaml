@@ -29,6 +29,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserReward'
+  /rewards/{id}:
+    get:
+      summary: Get user details by their ID.
+      parameters:
+      - name: id
+        in: path
+        description: Reward ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User details for the given ID.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RewardOffer'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RewardOffer'
+
   /user/{id}:
     get:
       summary: Get user details by their ID.
@@ -74,7 +98,7 @@ components:
     RewardOffer:
       type: object
       properties:
-        RewardId:
+        Id:
           type: string
           description: Reward offer ID
         Name:
@@ -90,6 +114,9 @@ components:
         Description:
           type: string
           description: Reward offer description
+        LogoUrl:
+          type: string
+          description: Reward offer logo URL
     UserReward:
       type: object
       properties:
