@@ -2,6 +2,7 @@ import ballerina/http;
 import ballerina/log;
 import ballerinax/mysql;
 import ballerina/sql;
+import ballerinax/mysql.driver as _;
 
 # A service representing a network-accessible API
 # bound to port `9090`.
