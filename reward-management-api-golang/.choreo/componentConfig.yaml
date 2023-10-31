@@ -39,4 +39,14 @@ spec:
     # +optional Defines the service references from the internal API marketplace.
     serviceReferences:
       # +required Name of the service reference.
-    
+    - name: choreo:///apifirst/ewne/iqynbl/5c69c/v1.0/ORGANIZATION
+      connectionConfig: default
+      env:
+      - from: ServiceURL
+        to: LOYALTY_API_URL
+      - from: ConsumerKey
+        to: CLIENT_ID
+      - from: ConsumerSecret
+        to: CLIENT_SECRET
+      - from: TokenURL
+        to: TOKEN_URL
