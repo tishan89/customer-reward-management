@@ -39,7 +39,7 @@ var clientId = os.Getenv("CLIENT_ID")
 var clientSecret = os.Getenv("CLIENT_SECRET")
 var tokenUrl = os.Getenv("TOKEN_URL")
 var loyaltyApiUrl = os.Getenv("LOYALTY_API_URL")
-var vendorManagementApiUrl = os.Getenv("VENDOR_MANAGEMENT_API_URL")
+// var vendorManagementApiUrl = os.Getenv("VENDOR_MANAGEMENT_API_URL")
 
 var clientCredsConfig = clientcredentials.Config{
 	ClientID:     clientId,
@@ -168,21 +168,21 @@ func PostRewardSelectionToVendorManagementApi(reward Reward) error {
 	}
 
 	// Construct the full URL using the base URL from the environment variable
-	url := fmt.Sprintf("%s/rewards", vendorManagementApiUrl)
-	// Make the HTTP POST request
-	resp, err := clientCredsConfig.Client(context.Background()).Post(url, "application/json", bytes.NewBuffer(payload))
-	if err != nil {
-		logger.Error("Failed to send reward to vendor management", zap.Any("reward", payload), zap.Error(err))
-		return fmt.Errorf("Failed to send reward to vendor management: %v", err)
-	}
-	defer resp.Body.Close()
+	// url := fmt.Sprintf("%s/rewards", vendorManagementApiUrl)
+	// // Make the HTTP POST request
+	// resp, err := clientCredsConfig.Client(context.Background()).Post(url, "application/json", bytes.NewBuffer(payload))
+	// if err != nil {
+	// 	logger.Error("Failed to send reward to vendor management", zap.Any("reward", payload), zap.Error(err))
+	// 	return fmt.Errorf("Failed to send reward to vendor management: %v", err)
+	// }
+	// defer resp.Body.Close()
 
-	// Check for non-200 status codes
-	if resp.StatusCode != http.StatusOK {
-		logger.Warn("API responded with non-200 status code", zap.Int("statusCode", resp.StatusCode))
-		return fmt.Errorf("API responded with status code: %d", resp.StatusCode)
-	}
+	// // Check for non-200 status codes
+	// if resp.StatusCode != http.StatusOK {
+	// 	logger.Warn("API responded with non-200 status code", zap.Int("statusCode", resp.StatusCode))
+	// 	return fmt.Errorf("API responded with status code: %d", resp.StatusCode)
+	// }
 
-	logger.Info("Successfully sent reward selection user", zap.Any("reward", reward))
+	logger.Info("Successfully sent reward selection user", zap.Any("payload", payload))
 	return nil
 }
