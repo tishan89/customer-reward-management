@@ -2,7 +2,7 @@ apiVersion: core.choreo.dev/v1alpha1
 kind: ComponentConfig
 metadata:
   # +required Name of the component that this configuration belongs to.
-  name: FE reward mgt service4
+  name: FE management service5
   # +required Project name of the component that this component belongs to. Cannot be changed after creation.
   projectName: E2E Testing
   annotations:
