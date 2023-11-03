@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"os"
+
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
 	"golang.org/x/oauth2/clientcredentials"
-	"net/http"
-	"os"
 )
 
 type User struct {
@@ -109,6 +110,11 @@ func main() {
 	defer logger.Sync() // Ensure all buffered logs are written
 
 	logger.Info("starting the reward management api (golang)...")
+	logger.Info("using the following environment variables")
+	logger.Info("CLIENT_ID: " + clientId)
+	logger.Info("CLIENT_SECRET: " + clientSecret)
+	logger.Info("TOKEN_URL: " + tokenUrl)
+	logger.Info("LOYALTY_API_URL: " + loyaltyApiUrl)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/select-reward", HandleRewardSelection).Methods("POST")
