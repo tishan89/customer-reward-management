@@ -34,7 +34,7 @@ spec:
   outbound:
     # +optional Defines the service references from the internal API marketplace.
     serviceReferences:
-      # +required Name of the service reference.
+      # +required Name of the service reference
     - name: choreo:///apifirst/ygtd/sneyts/5c69c/v1.0/PUBLIC
       connectionConfig: 01ee7c4d-7f97-11d8-8151-2e6ca968e741
       env:
