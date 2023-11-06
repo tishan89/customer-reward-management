@@ -2,7 +2,7 @@ apiVersion: core.choreo.dev/v1alpha1
 kind: ComponentConfig
 metadata:
   # +required Name of the component that this configuration belongs to.
-  name: FE reward mgt8
+  name: fe reward mgt10
   # +required Project name of the component that this component belongs to. Cannot be changed after creation.
   projectName: E2E Testing
   annotations:
@@ -36,7 +36,7 @@ spec:
     serviceReferences:
       # +required Name of the service reference
     - name: choreo:///apifirst/ygtd/sneyts/5c69c/v1.0/PUBLIC
-      connectionConfig: 01ee7c4d-7f97-11d8-8151-2e6ca968e741
+      connectionConfig: 01ee7c51-55df-1f58-98d4-06138f0a5120
       env:
       - from: ServiceURL
         to: LOYALTY_API_URL
