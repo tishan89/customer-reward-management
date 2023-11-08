@@ -36,7 +36,7 @@ spec:
     serviceReferences:
       # +required Name of the service reference
     - name: choreo:///apifirst/fiet/qqyqor/5c69c/v1.0/PUBLIC
-      connectionConfig: 01ee7e2f-5171-1338-8c8d-ab9a9dd77378
+      connectionConfig: 01ee7e30-3489-1300-8d6b-dcc6da05da31
       env:
       - from: ServiceURL
         to: LOYALTY_API_URL
