@@ -1,7 +1,7 @@
 package main
 
 import (
-	"context"
+	// "context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -9,7 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"go.uber.org/zap"
-	"golang.org/x/oauth2/clientcredentials"
+	// "golang.org/x/oauth2/clientcredentials"
 )
 
 type User struct {
@@ -35,17 +35,17 @@ type Reward struct {
 
 var logger *zap.Logger
 
-var clientId = os.Getenv("CLIENT_ID")
-var clientSecret = os.Getenv("CLIENT_SECRET")
-var tokenUrl = os.Getenv("TOKEN_URL")
+// var clientId = os.Getenv("CLIENT_ID")
+// var clientSecret = os.Getenv("CLIENT_SECRET")
+// var tokenUrl = os.Getenv("TOKEN_URL")
 var loyaltyApiUrl = os.Getenv("LOYALTY_API_URL")
 // var vendorManagementApiUrl = os.Getenv("VENDOR_MANAGEMENT_API_URL")
 
-var clientCredsConfig = clientcredentials.Config{
-	ClientID:     clientId,
-	ClientSecret: clientSecret,
-	TokenURL:     tokenUrl,
-}
+// var clientCredsConfig = clientcredentials.Config{
+// 	ClientID:     clientId,
+// 	ClientSecret: clientSecret,
+// 	TokenURL:     tokenUrl,
+// }
 
 func HandleRewardSelection(w http.ResponseWriter, r *http.Request) {
 	var selection RewardSelection
@@ -111,9 +111,9 @@ func main() {
 
 	logger.Info("starting the reward management api (golang)...")
 	logger.Info("using the following environment variables")
-	logger.Info("CLIENT_ID: " + clientId)
-	logger.Info("CLIENT_SECRET: " + clientSecret)
-	logger.Info("TOKEN_URL: " + tokenUrl)
+	// logger.Info("CLIENT_ID: " + clientId)
+	// logger.Info("CLIENT_SECRET: " + clientSecret)
+	// logger.Info("TOKEN_URL: " + tokenUrl)
 	logger.Info("LOYALTY_API_URL: " + loyaltyApiUrl)
 
 	r := mux.NewRouter()
@@ -140,7 +140,8 @@ func FetchUserByIdFromLoyaltyApi(userId string) (*User, error) {
 	// Construct the full URL using the base URL from the environment variable
 	url := fmt.Sprintf("%s/user/%s", loyaltyApiUrl, userId)
 	// Make the HTTP GET request
-	resp, err := clientCredsConfig.Client(context.Background()).Get(url)
+	
+	resp, err := http.Get(url)
 	if err != nil {
 		logger.Error("Failed to fetch user", zap.String("userId", userId), zap.Error(err))
 		return nil, fmt.Errorf("failed to fetch user: %v", err)
