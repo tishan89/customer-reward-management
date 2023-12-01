@@ -35,8 +35,8 @@ spec:
     # +optional Defines the service references from the internal API marketplace.
     serviceReferences:
       # +required Name of the service reference
-    - name: choreo:///apifirst/iiuk/exqqbn/5c69c/v1.0/PUBLIC
-      connectionConfig: 01ee8f3c-2d8b-1a40-8fb2-4ac984958655
+    - name: choreo:///apifirst/fipm/aravpe/5c69c/v1.0/PUBLIC
+      connectionConfig: 01ee9018-10c4-19ee-8ab8-99ab76ce9ad8
       env:
       - from: ServiceURL
         to: LOYALTY_API_URL
