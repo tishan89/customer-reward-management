@@ -36,7 +36,7 @@ spec:
     serviceReferences:
       # +required Name of the service reference
     - name: choreo:///apifirst/ikit/vlsdyn/5c69c/v1.0/PUBLIC
-      connectionConfig: 01ee94df-65b4-1590-b0d4-a2356c20906d
+      connectionConfig: 01ee94e2-ddd0-14e0-9d03-1b6a46e8c9e7
       env:
       - from: ServiceURL
         to: LOYALTY_API_URL
