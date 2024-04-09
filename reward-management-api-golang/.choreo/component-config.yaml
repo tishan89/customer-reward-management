@@ -35,7 +35,7 @@ spec:
     # +optional Defines the service references from the internal API marketplace.
     serviceReferences:
       # +required Name of the service reference
-     - name: choreo:///apifirst/test49/ffzcmc/5c69c/v1.0/PUBLIC
+    - name: choreo:///apifirst/test49/ffzcmc/5c69c/v1.0/PUBLIC
       connectionConfig: 01eef63b-3c49-13ce-8b60-1bbd0a2b2ecf
       env:
       - from: ServiceURL
